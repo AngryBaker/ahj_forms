@@ -1,0 +1,12 @@
+.popover {
+    position: absolute;
+    width: 250px;
+    border: 1px solid gray;
+}
+
+.popover-title {
+    border-bottom: 1px solid rgb(207, 203, 203);
+    background-color: rgb(214, 211, 211);
+    color:black;
+    font-size: large;
+}

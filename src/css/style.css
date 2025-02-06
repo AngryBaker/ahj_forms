@@ -1,0 +1,13 @@
+body {
+    color: #999;
+    padding: 90px;
+}
+
+.btn {
+    color: #fff;
+    background: #dc3545;
+    border-color: #dc3545;
+    height: 30px;
+    width: 230px;
+    border-radius: 10px;
+}
