@@ -2,16 +2,20 @@ import Popover from "./Popover/Popover";
 
 const popoverFactory = new Popover();
 const btn = document.querySelector(".btn");
-let activePopovers = [];
+popoverFactory.addHandler(btn);
 
-btn.addEventListener("click", (e) => {
-  e.preventDefault();
+// btn.addEventListener("click", (e) => {
+//   e.preventDefault();
 
-  activePopovers.forEach((id) => popoverFactory.removePopover(id));
-  activePopovers = [];
-  const id = popoverFactory.showPopover(btn);
-  activePopovers.push(id);
-  setTimeout(() => {
-    popoverFactory.removePopover(id);
-  }, 5000);
-});
+//   if (activePopovers[0]) {
+//     // activePopovers.forEach((id) => popoverFactory.removePopover(id));
+//     popoverFactory.removePopover(activePopovers[0]);
+//     activePopovers = [];
+//   } else {
+//     const id = popoverFactory.showPopover(btn);
+//     activePopovers.push(id);
+//     setTimeout(() => {
+//       popoverFactory.removePopover(id);
+//     }, 5000);
+//   }
+// });

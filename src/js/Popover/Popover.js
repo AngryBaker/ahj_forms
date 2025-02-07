@@ -1,6 +1,12 @@
 export default class Popover {
   constructor() {
     this._popovers = [];
+    this.activePopovers = [];
+    this.popoverHandler = this.popoverHandler.bind(this);
+  }
+
+  addHandler(element) {
+    element.addEventListener("click", this.popoverHandler);
   }
 
   showPopover(element) {
@@ -32,5 +38,21 @@ export default class Popover {
 
     popover.element.remove();
     this._popovers.filter((p) => p.id !== id);
+  }
+
+  popoverHandler(e) {
+    e.preventDefault();
+    const element = e.currentTarget;
+
+    if (this.activePopovers[0]) {
+      this.removePopover(this.activePopovers[0]);
+      this.activePopovers = [];
+    } else {
+      const id = this.showPopover(element);
+      this.activePopovers.push(id);
+      setTimeout(() => {
+        this.removePopover(id);
+      }, 5000);
+    }
   }
 }
