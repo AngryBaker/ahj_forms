@@ -5,6 +5,11 @@
 class Popover {
   constructor() {
     this._popovers = [];
+    this.activePopovers = [];
+    this.popoverHandler = this.popoverHandler.bind(this);
+  }
+  addHandler(element) {
+    element.addEventListener("click", this.popoverHandler);
   }
   showPopover(element) {
     const popoverEl = document.createElement("div");
@@ -32,22 +37,42 @@ class Popover {
     popover.element.remove();
     this._popovers.filter(p => p.id !== id);
   }
+  popoverHandler(e) {
+    e.preventDefault();
+    const element = e.currentTarget;
+    if (this.activePopovers[0]) {
+      this.removePopover(this.activePopovers[0]);
+      this.activePopovers = [];
+    } else {
+      const id = this.showPopover(element);
+      this.activePopovers.push(id);
+      setTimeout(() => {
+        this.removePopover(id);
+      }, 5000);
+    }
+  }
 }
 ;// ./src/js/app.js
 
 const popoverFactory = new Popover();
 const btn = document.querySelector(".btn");
-let activePopovers = [];
-btn.addEventListener("click", e => {
-  e.preventDefault();
-  activePopovers.forEach(id => popoverFactory.removePopover(id));
-  activePopovers = [];
-  const id = popoverFactory.showPopover(btn);
-  activePopovers.push(id);
-  setTimeout(() => {
-    popoverFactory.removePopover(id);
-  }, 5000);
-});
+popoverFactory.addHandler(btn);
+
+// btn.addEventListener("click", (e) => {
+//   e.preventDefault();
+
+//   if (activePopovers[0]) {
+//     // activePopovers.forEach((id) => popoverFactory.removePopover(id));
+//     popoverFactory.removePopover(activePopovers[0]);
+//     activePopovers = [];
+//   } else {
+//     const id = popoverFactory.showPopover(btn);
+//     activePopovers.push(id);
+//     setTimeout(() => {
+//       popoverFactory.removePopover(id);
+//     }, 5000);
+//   }
+// });
 ;// ./src/index.js
 
 
